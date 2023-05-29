@@ -4,6 +4,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 
+
 @pytest.mark.usefixtures("setup_and_teardown")
 class TestLogin:
     def test_login_with_valid_credentials(self):
@@ -26,7 +27,8 @@ class TestLogin:
         self.driver.find_element(By.XPATH, "//input[@name='email']").send_keys("admin@luxelocker.com")
         self.driver.find_element(By.XPATH, "//input[@name='password']").send_keys("1234567899aA!")
         self.driver.find_element(By.XPATH, "(//button[normalize-space()='Log In'])[1]").click()
-        expected_warning_message = "The password you entered did not match our records. Please double-check and try again."
+        expected_warning_message = "The password you entered did not match our records. Please double-check and try " \
+                                   "again."
         self.driver.implicitly_wait(10)
         assert self.driver.find_element(By.XPATH, "//span[@class='text-xs']").text.__contains__(expected_warning_message)
 
