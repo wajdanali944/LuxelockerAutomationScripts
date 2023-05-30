@@ -24,22 +24,16 @@ class TestHandlingPagination:
         print(rows)
         print(cols)
 
+        next_btn = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(
+                    (By.XPATH, '//*[@id="simple-tabpanel-0"]/div/div[2]/div/div[2]/div[2]/ul/li[2]'))).click()
+
+        rows_next = len(self.driver.find_elements(By.XPATH,
+                                                     "//*[@id='simple-tabpanel-0']/div/div[2]/div/div[1]/div/table/tbody/tr"))
+        Total = rows_next+rows
         next_btn = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="simple-tabpanel-0"]/div/div[2]/div/div[2]/div[2]/ul/li[2]'))).click()
+        totalpaginationcount =self.driver.find_element(By.XPATH, "//*[@id=\"simple-tabpanel-0\"]/div/div[2]/div/div[2]/div[1]/div[2]/span")
+        text = totalpaginationcount.text
+        splitval = text.split()
+        print(splitval)
 
-
-        totalpaginationcount =self.driver.find_element(By.XPATH, "//*[@id='simple-tabpanel-0']/div/div[2]/div/div[2]/div[1]/div[2]/span")
-
-
-        pages_text = self.driver.find_element(By.XPATH, "//*[@id='simple-tabpanel-0']/div/div[2]/div/div[2]/div[1]/div[2]/span").text
-        start_index = pages_text.index("1")+1
-        end_index = pages_text.index("1")-1
-        print(start_index)
-        print(end_index)
-        pages = int(pages_text[start_index:end_index])
-
-        for page in range(1, pages+1):
-            if self.driver.find_element(By.XPATH, "//*[@id='simple-tabpanel-0']/div/div[2]/div/div[2]/div[2]/ul/li[2]/div/div").is_enabled():
-                self.driver.find_element(By.XPATH, "//*[@id='simple-tabpanel-0']/div/div[2]/div/div[2]/div[2]/ul/li[2]/div/div").click()
-            else:
-                break
-            time.sleep(10)
+        assert str(Total) == splitval[2]
