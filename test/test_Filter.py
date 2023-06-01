@@ -18,7 +18,7 @@ class TestFilter:
         ele_dis = self.driver.find_element(By.XPATH, "//p[normalize-space()='Filter']")
         if ele_dis.is_enabled():
                 ele_dis.click()
-                print("This will remain pending till the Filter option will work in the campuses page")
+                print("This will remain pending till the Filter option will not work in the campuses page")
         else:
              print("Filter button is not enabled in Campus section")
 
