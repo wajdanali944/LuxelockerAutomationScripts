@@ -4,17 +4,18 @@ import pytest
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
+from pages.HomePage import HomePage
 
 
 @pytest.mark.usefixtures("setup_and_teardown")
 class TestHandlingPagination:
     def test_verifying_pagination_with_table_data(self):
-        self.driver.find_element(By.XPATH, "//input[@name='email']").send_keys("admin@luxelocker.com")
-        self.driver.find_element(By.XPATH, "//input[@name='password']").send_keys("123456789aA!")
-        self.driver.find_element(By.XPATH, "(//button[normalize-space()='Log In'])[1]").click()
+        home_page = HomePage(self.driver)
+        home_page.enter_email_address("admin@luxelocker.com")
+        home_page.enter_password("123456789aA!")
+        home_page.click_on_login_button()
         self.driver.implicitly_wait(10)
-        self.driver.find_element(By.XPATH, "/html/body/div[1]/div/div[1]/ul/div[1]/div[1]/div/div[2]/span").click()
+        home_page.click_on_campus_link()
         self.driver.implicitly_wait(15)
         rows = len(self.driver.find_elements(By.XPATH,
                                              "//*[@id='simple-tabpanel-0']/div/div[2]/div/div[1]/div/table/tbody/tr"))  # count number of rows

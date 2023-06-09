@@ -21,6 +21,6 @@ class TestRowsPerPage:
            if dropdown_count == totalfacilities:
                 print ('Rows are 20')
            else:
-                print("Need to click on  50 rows per page.")
+                print("Need to click on 50 rows per page.")
         else:
              quit()

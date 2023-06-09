@@ -1,192 +1,115 @@
 import string
 import time
 import random
-
 import pytest
-from selenium.common import NoSuchElementException, ElementNotVisibleException, ElementNotSelectableException, TimeoutException
+from selenium.common import NoSuchElementException, ElementNotVisibleException, ElementNotSelectableException, \
+    TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from utilities.recallable import call
+from pages.CreateCampus import CreateCampus
+from pages.HomePage import HomePage
 
 
 @pytest.mark.usefixtures("setup_and_teardown")
 class TestCreateCampus:
     def test_creating_campus_including_all_values(self):
-        self.driver.find_element(By.XPATH, "//input[@name='email']").send_keys("admin@luxelocker.com")
-        self.driver.find_element(By.XPATH, "//input[@name='password']").send_keys("123456789aA!")
-        self.driver.find_element(By.XPATH, "(//button[normalize-space()='Log In'])[1]").click()  #Login button click
+        home_page = HomePage(self.driver)
+        home_page.enter_email_address("admin@luxelocker.com")
+        home_page.enter_password("123456789aA!")
+        home_page.click_on_login_button()
         self.driver.implicitly_wait(10)
-        self.driver.find_element(By.XPATH, "/html/body/div[1]/div/div[1]/ul/div[1]/div[1]/div/div[2]/span").click() #campus button click side bar
+        home_page.click_on_campus_link()
         self.driver.implicitly_wait(8)
-        self.driver.find_element(By.XPATH, "/html/body/div[1]/div/div[2]/div/div[1]/span/span[1]").click() #create campus button click
+        create_campus = CreateCampus(self.driver)
+        create_campus.click_on_create_campus_button()
         time.sleep(6)
-        selbtn = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//p[normalize-space()="Select"]'))).click()  #clicking on select option
-        seleelem = WebDriverWait(self.driver,10).until(EC.element_to_be_clickable((By.XPATH, "(//p[normalize-space()='Arizona'])[1]"))).click()  #clicking on dropdown options
-        try:
-           self.driver.find_element(By.XPATH, "//*[@class='MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-bq9v9b']/parent::div").click
-           self.driver.implicitly_wait(3)
-           self.driver.find_element(By.XPATH, "//*[@class='MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-bq9v9b']").click()
-           print("Modal button clicked")   #clicking on continue button
-        except TimeoutException:
-            print("Modal button was not found")
-        elename = WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located((By.XPATH, "//input[@name='name']"))).send_keys(self.random_word(6))  # entering name
-        self.driver.find_element(By.NAME, "street").send_keys("77 virg block")
-        self.driver.find_element(By.NAME, "postalCode").send_keys("8790")
-        self.driver.find_element(By.NAME, "numOfUnits").send_keys("100")
-        self.driver.find_element(By.NAME, "longitude").send_keys("10014")
-        self.driver.find_element(By.NAME, "latitude").send_keys("20014")
-        self.driver.find_element(By.NAME, "maintenanceFee").send_keys("200")
-        self.driver.find_element(By.XPATH, "//label[contains(@color,'#FFFFFF')]//input[contains(@type,'checkbox')]").click() #checkboxing active checkbox
-        try:
-            self.driver.find_element(By.XPATH,
-                                     "//*[@class='MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-bq9v9b']/parent::div").click
-            self.driver.implicitly_wait(3)
-            self.driver.find_element(By.XPATH,
-                                     "//*[@class='MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-bq9v9b']").click()
-            print("Modal button clicked")  # clicking on continue button
-        except TimeoutException:
-            print("Modal button was not found")  # clicking on details page continue button
-        try:
-            self.driver.find_element(By.XPATH,
-                                     "//*[@class='MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-bq9v9b']/parent::div").click
-            self.driver.implicitly_wait(3)
-            self.driver.find_element(By.XPATH,
-                                     "//*[@class='MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-bq9v9b']").click()
-            print("Modal button clicked")  # clicking on continue button
-        except TimeoutException:
-            print("Modal button was not found")  # clicking on System Settings continue button
-        clcair = WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located((By.XPATH, "//p[normalize-space()='Air Conditioner']"))).click()  # selecting Air Conditioner
-        clcair = WebDriverWait(self.driver, 10).until(
+        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(
+            (By.XPATH, '//p[normalize-space()="Select"]'))).click()  # clicking on select option
+        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(
+            (By.XPATH, "(//p[normalize-space()='Arizona'])[1]"))).click()  # clicking on dropdown options
+        call.recallable_button(self.driver)
+        WebDriverWait(self.driver, 10).until(
+            EC.visibility_of_element_located((By.XPATH, "//input[@name='name']"))).send_keys(
+            self.random_word(6))  # entering name
+        create_campus.enter_campus_street("77 virg block")
+        create_campus.enter_campus_postalcode("8790")
+        create_campus.enter_campus_numberofunits("100")
+        create_campus.enter_campus_longitude("10014")
+        create_campus.enter_campus_latitude("20014")
+        create_campus.enter_campus_maintenanceFee("200")
+        create_campus.click_on_active_checkbox()
+        call.recallable_button(self.driver)
+        self.driver.implicitly_wait(4)
+        call.recallable_button(self.driver)
+        WebDriverWait(self.driver, 10).until(
+            EC.visibility_of_element_located(
+                (By.XPATH, "//p[normalize-space()='Air Conditioner']"))).click()  # selecting Air Conditioner
+        WebDriverWait(self.driver, 10).until(
             EC.visibility_of_element_located(
                 (By.XPATH, "//p[normalize-space()='Security Camera']"))).click()  # selecting security camera
-        try:
-            self.driver.find_element(By.XPATH,
-                                     "//*[@class='MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-bq9v9b']/parent::div").click
-            self.driver.implicitly_wait(3)
-            self.driver.find_element(By.XPATH,
-                                     "//*[@class='MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-bq9v9b']").click()
-            time.sleep(10)
-            print("Modal button clicked")  # clicking on continue button
-        except TimeoutException:
-            print("Modal button was not found")  # clicking on Save button on Amenties
+        call.recallable_button(self.driver)
 
     def test_creating_campus_without_selecting_select_dropdown(self):
-        self.driver.find_element(By.XPATH, "//input[@name='email']").send_keys("admin@luxelocker.com")
-        self.driver.find_element(By.XPATH, "//input[@name='password']").send_keys("123456789aA!")
-        self.driver.find_element(By.XPATH, "(//button[normalize-space()='Log In'])[1]").click()  #Login button click
+        home_page = HomePage(self.driver)
+        home_page.enter_email_address("admin@luxelocker.com")
+        home_page.enter_password("123456789aA!")
+        home_page.click_on_login_button()
         self.driver.implicitly_wait(10)
-        self.driver.find_element(By.XPATH, "/html/body/div[1]/div/div[1]/ul/div[1]/div[1]/div/div[2]/span").click() #campus button click side bar
+        home_page.click_on_campus_link()
         self.driver.implicitly_wait(8)
-        self.driver.find_element(By.XPATH, "/html/body/div[1]/div/div[2]/div/div[1]/span/span[1]").click() #create campus button click
+        create_campus = CreateCampus(self.driver)
+        create_campus.click_on_create_campus_button()
         time.sleep(6)
-        # selbtn = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//p[normalize-space()="Select"]'))).click()  #clicking on select option
-        # seleelem = WebDriverWait(self.driver,10).until(EC.element_to_be_clickable((By.XPATH, ""))).click()  #clicking on dropdown options
-        try:
-            ele_dis = WebDriverWait(self.driver, 5).until(EC.element_to_be_clickable((By.XPATH, "//*[@class='MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium Mui-disabled MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-1lrzbgp']/parent::div"))).is_enabled()
-        # ele_dis = self.driver.find_element(By.XPATH,
-                                 # "//*[@class='MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium Mui-disabled MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-1lrzbgp']").click()
-            ele_dis.click()
-        except:
-            print("Button is disabled")
-            pass
+        call.recallable_disable_button(self.driver)
 
     def test_creating_campus_with_existed_name(self):
-
-            self.driver.find_element(By.XPATH, "//input[@name='email']").send_keys("admin@luxelocker.com")
-            self.driver.find_element(By.XPATH, "//input[@name='password']").send_keys("123456789aA!")
-            self.driver.find_element(By.XPATH,
-                                     "(//button[normalize-space()='Log In'])[1]").click()  # Login button click
-            self.driver.implicitly_wait(10)
-            self.driver.find_element(By.XPATH,
-                                     "/html/body/div[1]/div/div[1]/ul/div[1]/div[1]/div/div[2]/span").click()  # campus button click side bar
-            self.driver.implicitly_wait(8)
-            self.driver.find_element(By.XPATH,
-                                     "/html/body/div[1]/div/div[2]/div/div[1]/span/span[1]").click()  # create campus button click
-            time.sleep(6)
-            selbtn = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(
-                (By.XPATH, '//p[normalize-space()="Select"]'))).click()  # clicking on select option
-            seleelem = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(
-                (By.XPATH, "(//p[normalize-space()='Arizona'])[1]"))).click()  # clicking on dropdown options
-            try:
-                self.driver.find_element(By.XPATH,
-                                         "//*[@class='MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-bq9v9b']/parent::div").click
-                self.driver.implicitly_wait(3)
-                self.driver.find_element(By.XPATH,
-                                         "//*[@class='MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-bq9v9b']").click()
-                print("Modal button clicked")  # clicking on continue button
-            except TimeoutException:
-                print("Modal button was not found")
-            expected_warning_message = "Facility with this name already exists."
-            elemexist = self.driver.find_element(By.XPATH, "//input[@name='name']").send_keys(
-                "Peter")  # entering name
-            assert elemexist.__contains__(expected_warning_message)
-
-            self.driver.find_element(By.NAME, "street").send_keys("77 virg block")
-            self.driver.find_element(By.NAME, "postalCode").send_keys("8790")
-            self.driver.find_element(By.NAME, "numOfUnits").send_keys("100")
-            self.driver.find_element(By.NAME, "longitude").send_keys("10014")
-            self.driver.find_element(By.NAME, "latitude").send_keys("20014")
-            self.driver.find_element(By.NAME, "maintenanceFee").send_keys("200")
-            self.driver.find_element(By.XPATH,
-                                     "//label[contains(@color,'#FFFFFF')]//input[contains(@type,'checkbox')]").click()  # checkboxing active checkbox
-            try:
-                self.driver.find_element(By.XPATH,
-                                         "//*[@class='MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-bq9v9b']/parent::div").click
-                self.driver.implicitly_wait(3)
-                self.driver.find_element(By.XPATH,
-                                         "//*[@class='MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-bq9v9b']").click()
-                print("Modal button clicked")  # clicking on continue button
-            except TimeoutException:
-                print("Modal button was not found")  # clicking on details page continue button
-
+        home_page = HomePage(self.driver)
+        home_page.enter_email_address("admin@luxelocker.com")
+        home_page.enter_password("123456789aA!")
+        home_page.click_on_login_button()
+        self.driver.implicitly_wait(10)
+        home_page.click_on_campus_link()
+        self.driver.implicitly_wait(8)
+        create_campus = CreateCampus(self.driver)
+        create_campus.click_on_create_campus_button()
+        time.sleep(6)
+        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(
+            (By.XPATH, '//p[normalize-space()="Select"]'))).click()  # clicking on select option
+        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(
+            (By.XPATH, "(//p[normalize-space()='Arizona'])[1]"))).click()  # clicking on dropdown options
+        call.recallable_button(self.driver)
+        call.recallable_campus_name_already_exists(self.driver)
 
     def test_creating_campus_without_entering_anything_in_details_section(self):
-        self.driver.find_element(By.XPATH, "//input[@name='email']").send_keys("admin@luxelocker.com")
-        self.driver.find_element(By.XPATH, "//input[@name='password']").send_keys("123456789aA!")
-        self.driver.find_element(By.XPATH, "(//button[normalize-space()='Log In'])[1]").click()  # Login button click
+        home_page = HomePage(self.driver)
+        home_page.enter_email_address("admin@luxelocker.com")
+        home_page.enter_password("123456789aA!")
+        home_page.click_on_login_button()
         self.driver.implicitly_wait(10)
-        self.driver.find_element(By.XPATH,
-                                 "/html/body/div[1]/div/div[1]/ul/div[1]/div[1]/div/div[2]/span").click()  # campus button click side bar
+        home_page.click_on_campus_link()
         self.driver.implicitly_wait(8)
-        self.driver.find_element(By.XPATH,
-                                 "/html/body/div[1]/div/div[2]/div/div[1]/span/span[1]").click()  # create campus button click
+        create_campus = CreateCampus(self.driver)
+        create_campus.click_on_create_campus_button()
         time.sleep(6)
-        selbtn = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(
+        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(
             (By.XPATH, '//p[normalize-space()="Select"]'))).click()  # clicking on select option
-        seleelem = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(
+        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(
             (By.XPATH, "(//p[normalize-space()='Arizona'])[1]"))).click()  # clicking on dropdown options
-        try:
-            self.driver.find_element(By.XPATH,
-                                     "//*[@class='MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-bq9v9b']/parent::div").click
-            self.driver.implicitly_wait(3)
-            self.driver.find_element(By.XPATH,
-                                     "//*[@class='MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-bq9v9b']").click()
-            print("Modal button clicked")  # clicking on continue button
-        except TimeoutException:
-            print("Modal button was not found")
-        elename = WebDriverWait(self.driver, 5).until(
+        call.recallable_button(self.driver)
+        WebDriverWait(self.driver, 5).until(
             EC.element_to_be_clickable((By.XPATH, "//input[@name='name']"))).send_keys(
             "")  # entering name
-        self.driver.find_element(By.NAME, "street").send_keys("")
-        self.driver.find_element(By.NAME, "postalCode").send_keys("")
-        self.driver.find_element(By.NAME, "numOfUnits").send_keys("")
-        self.driver.find_element(By.NAME, "longitude").send_keys("")
-        self.driver.find_element(By.NAME, "latitude").send_keys("")
-        self.driver.find_element(By.NAME, "maintenanceFee").send_keys("")
-        self.driver.find_element(By.XPATH,
-                                 "//label[contains(@color,'#FFFFFF')]//input[contains(@type,'checkbox')]")  # checkboxing active checkbox
-        try:
-            ele_dis = WebDriverWait(self.driver, 5).until(EC.element_to_be_clickable((By.XPATH, "//*[@class='MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium Mui-disabled MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-1lrzbgp']/parent::div"))).is_enabled()
-        # ele_dis = self.driver.find_element(By.XPATH,
-                                 # "//*[@class='MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium Mui-disabled MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-1lrzbgp']").click()
-            ele_dis.click()
-        except:
-            print("Continue Button is disabled on Details section")
-            pass
-
-
+        create_campus = CreateCampus(self.driver)
+        create_campus.enter_campus_street("")
+        create_campus.enter_campus_postalcode("")
+        create_campus.enter_campus_numberofunits("")
+        create_campus.enter_campus_longitude("")
+        create_campus.enter_campus_latitude("")
+        create_campus.enter_campus_maintenanceFee("")
+        create_campus.click_on_active_checkbox()
+        call.recallable_disable_button(self.driver)
 
     def random_word(self, length=6, chars=string.ascii_lowercase):
         return ''.join(random.choice(chars) for i in range(length))

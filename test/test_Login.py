@@ -1,44 +1,51 @@
 from datetime import datetime
 import pytest
-from selenium import webdriver
 from selenium.webdriver.common.by import By
-from webdriver_manager.chrome import ChromeDriverManager
+
+from pages.HomePage import HomePage
+from pages.LoginPage import LoginPage
 
 
 @pytest.mark.usefixtures("setup_and_teardown")
 class TestLogin:
     def test_login_with_valid_credentials(self):
-        self.driver.find_element(By.XPATH, "//input[@name='email']").send_keys("admin@luxelocker.com")
-        self.driver.find_element(By.XPATH, "//input[@name='password']").send_keys("123456789aA!")
-        self.driver.find_element(By.XPATH, "(//button[normalize-space()='Log In'])[1]").click()
-        # url = driver.current_url
-        print(self.driver.current_url)
+        home_page = HomePage(self.driver)
+        home_page.enter_email_address("admin@luxelocker.com")
+        home_page.enter_password("123456789aA!")
+        home_page.click_on_login_button()
+
 
     def test_login_with_invalid_email_and_valid_password(self):
-        self.driver.find_element(By.XPATH, "//input[@name='email']").send_keys(self.generate_email_with_time_stamp())
-        self.driver.find_element(By.XPATH, "//input[@name='password']").send_keys("123456789aA!")
-        self.driver.find_element(By.XPATH, "(//button[normalize-space()='Log In'])[1]").click()
+        home_page = HomePage(self.driver)
+        home_page.enter_email_address(self.generate_email_with_time_stamp())
+        home_page.enter_password("123456789aA!")
+        home_page.click_on_login_button()
+        login_page = LoginPage(self.driver)
         expected_warning_message = "The email you entered did not match our records. Please double-check and try again."
         self.driver.implicitly_wait(10)
-        assert self.driver.find_element(By.XPATH, "(//span[@class='text-xs'])[1]").text.__contains__(expected_warning_message)
-        # assert expected_warning_message == error_message
+        assert login_page.retrieve_warning_message().__contains__(expected_warning_message)
+
 
     def test_login_with_valid_email_and_invalid_password(self):
-        self.driver.find_element(By.XPATH, "//input[@name='email']").send_keys("admin@luxelocker.com")
-        self.driver.find_element(By.XPATH, "//input[@name='password']").send_keys("1234567899aA!")
-        self.driver.find_element(By.XPATH, "(//button[normalize-space()='Log In'])[1]").click()
-        expected_warning_message = "The password you entered did not match our records. Please double-check and try " \
-                                   "again."
+        home_page = HomePage(self.driver)
+        home_page.enter_email_address("admin@luxelocker.com")
+        home_page.enter_password("1234567899aA!")
+        home_page.click_on_login_button()
+        login_page = LoginPage(self.driver)
+        expected_warning_message = "The password you entered did not match our records. Please double-check and try again."
         self.driver.implicitly_wait(10)
-        assert self.driver.find_element(By.XPATH, "//span[@class='text-xs']").text.__contains__(expected_warning_message)
+        assert login_page.retrieve_warning_message().__contains__(expected_warning_message)
+
+
 
     def test_login_without_entering_credentials(self):
-        self.driver.find_element(By.XPATH, "//input[@name='email']").send_keys("")
-        self.driver.find_element(By.XPATH, "//input[@name='password']").send_keys("")
-        self.driver.find_element(By.XPATH, "(//button[normalize-space()='Log In'])[1]").click()
-        self.driver.implicitly_wait(10)
+        home_page = HomePage(self.driver)
+        home_page.enter_email_address("")
+        home_page.enter_password("")
+        home_page.click_on_login_button()
+        login_page = LoginPage(self.driver)
         expected_warning_message = "Email is required"
-        assert self.driver.find_element(By.XPATH, "//span[@class='text-xs']").text.__contains__(expected_warning_message)
+        assert login_page.retrieve_warning_message().__contains__(expected_warning_message)
 
 
 
