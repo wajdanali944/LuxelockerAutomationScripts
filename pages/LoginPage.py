@@ -7,7 +7,7 @@ class LoginPage:
         self.driver = driver
 
 
-    warning_message_xpath = "(//span[@class='text-xs'])[1]"
+    warning_message_xpath = "//span[@class='errorText_12'][1]"
 
 
     def retrieve_warning_message(self):

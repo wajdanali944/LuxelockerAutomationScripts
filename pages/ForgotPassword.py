@@ -6,10 +6,10 @@ class  ForgotPassword:
     def __init__(self,driver):
         self.driver = driver
 
-    forgot_your_password_button_xpath = "//p[@class='MuiTypography-root MuiTypography-body1 css-1i7v4ob']"
+    forgot_your_password_button_xpath = "//p[@class='MuiTypography-root MuiTypography-body1 css-1hoywoe']"
     enter_email_field_xpath = "//*[@id='root']/div/div[1]/div/form/div/div[1]/div/input"
     send_button_xpath = "//*[@id=':r3:']"
-    warning_message_xpath = "//span[@class='text-xs']"
+    warning_message_xpath = "//span[@class='errorText_12']"
 
 
     def click_on_forgot_password_button(self):

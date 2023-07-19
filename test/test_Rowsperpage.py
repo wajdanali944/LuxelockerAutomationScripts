@@ -1,10 +1,5 @@
-import time
-
 import pytest
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-
 from pages.HomePage import HomePage
 
 
@@ -17,7 +12,7 @@ class TestRowsPerPage:
         home_page.enter_password("123456789aA!")
         home_page.click_on_login_button()
         self.driver.implicitly_wait(10)
-        self.driver.find_element(By.XPATH, "/html/body/div[1]/div/div[1]/ul/div[1]/div[1]/div/div[2]/span").click() #click on Campus on side window
+        home_page.click_on_campus_link()
         self.driver.implicitly_wait(15)
         self.driver.find_element(By.XPATH,"/html/body/div[1]/div/div[2]/div/div[2]/div/div[2]/div/div[2]/div/div[2]/div[1]/div[1]/div/div")
 
@@ -37,7 +32,7 @@ class TestRowsPerPage:
         home_page.enter_password("123456789aA!")
         home_page.click_on_login_button()
         self.driver.implicitly_wait(10)
-        self.driver.find_element(By.XPATH, "/html/body/div[1]/div/div[1]/ul/div[1]/div[2]/div/div[2]/span").click()  #click on Units on side window
+        home_page.click_on_unit_link()  #click on Units on side window
         self.driver.implicitly_wait(15)
         self.driver.find_element(By.XPATH,"/html/body/div[1]/div/div[2]/div/div[2]/div/div[2]/div/div[2]/div/div[2]/div[1]/div[1]/div/div")
 
@@ -77,7 +72,7 @@ class TestRowsPerPage:
         home_page.enter_password("123456789aA!")
         home_page.click_on_login_button()
         self.driver.implicitly_wait(10)
-        self.driver.find_element(By.XPATH, "/html/body/div[1]/div/div[1]/ul/div[1]/div[4]/div").click()  #click on FAQS on side window
+        home_page.click_on_faq_link()  #click on FAQS on side window
         self.driver.implicitly_wait(15)
         self.driver.find_element(By.XPATH,"/html/body/div[1]/div/div[2]/div/div[2]/div/div[2]/div/div[2]/div/div[2]/div[1]/div[1]/div/div")
 
@@ -97,8 +92,7 @@ class TestRowsPerPage:
         home_page.enter_password("123456789aA!")
         home_page.click_on_login_button()
         self.driver.implicitly_wait(10)
-        self.driver.find_element(By.XPATH,
-                                 "/html/body/div[1]/div/div[1]/ul/div[1]/div[5]/div/div[2]/span").click()  # click on Announcements on side window
+        home_page.click_on_announcement_link()  # click on Announcements on side window
         self.driver.implicitly_wait(15)
         self.driver.find_element(By.XPATH,
                                  "/html/body/div[1]/div/div[2]/div/div[3]/div/div[2]/div[1]/div[1]/div") #rows per page xpath

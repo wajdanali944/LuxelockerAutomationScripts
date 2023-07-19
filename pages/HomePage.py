@@ -16,6 +16,9 @@ class HomePage:
     password_field_xpath = "//input[@name='password']"
     login_button_xpath = "//button[@type='submit']"
     side_bar_campus_section_xpath = "/html/body/div[1]/div/div[1]/ul/div[1]/div[1]/div/div[2]/span"
+    side_bar_unit_section_xpath = "/html/body/div[1]/div/div[1]/ul/div[1]/div[2]/div/div[2]/span"
+    side_bar_faq_section_xpath = "/html/body/div[1]/div/div[1]/ul/div[1]/div[4]/div"
+    side_bar_announcement_section_xpath = "/html/body/div[1]/div/div[1]/ul/div[1]/div[5]/div/div[2]/span"
 
 
 
@@ -43,3 +46,12 @@ class HomePage:
 
     def click_on_campus_link(self):
         self.driver.find_element(By.XPATH, self.side_bar_campus_section_xpath).click()
+
+    def click_on_unit_link(self):
+        self.driver.find_element(By.XPATH, self.side_bar_unit_section_xpath).click()
+
+    def click_on_faq_link(self):
+        self.driver.find_element(By.XPATH, self.side_bar_faq_section_xpath).click()
+
+    def click_on_announcement_link(self):
+        self.driver.find_element(By.XPATH, self.side_bar_announcement_section_xpath).click()

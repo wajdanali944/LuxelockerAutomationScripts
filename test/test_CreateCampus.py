@@ -43,12 +43,13 @@ class TestCreateCampus:
         call.recallable_button(self.driver)
         self.driver.implicitly_wait(4)
         call.recallable_button(self.driver)
+        self.driver.implicitly_wait(5)
         WebDriverWait(self.driver, 10).until(
             EC.visibility_of_element_located(
-                (By.XPATH, "//p[normalize-space()='Air Conditioner']"))).click()  # selecting Air Conditioner
+                (By.XPATH, "/html/body/div[2]/div[3]/div/div[2]/div[2]/div[1]/div/div[2]/div[1]/label/span[2]/div/span"))).click()  # selecting Air Conditioner
         WebDriverWait(self.driver, 10).until(
             EC.visibility_of_element_located(
-                (By.XPATH, "//p[normalize-space()='Security Camera']"))).click()  # selecting security camera
+                (By.XPATH, "/html/body/div[2]/div[3]/div/div[2]/div[2]/div[1]/div/div[2]/div[2]/label/span[2]/div/span"))).click()  # selecting security camera
         call.recallable_button(self.driver)
 
     def test_creating_campus_without_selecting_select_dropdown(self):
