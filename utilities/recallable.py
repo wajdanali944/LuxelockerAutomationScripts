@@ -29,7 +29,7 @@ class call(BaseClass):
             driver.implicitly_wait(3)
             # driver.find_element(By.XPATH,
             #                     "//*[@class='MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-root MuiLoadingButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium !px-8 !normal-case w-24 css-hzswti']").click()
-            print("A new unit has been created")
+            print("Save button has been clicked")
         except TimeoutException:
             print("Save button was not found")
 
@@ -54,3 +54,13 @@ class call(BaseClass):
 
             print("Kindly enter some other name, this name already exists.")
             exit()
+
+    def recallable_required_unit(driver):
+        expected_warning_message = "Fill out all required fields."
+        try:
+            requirele = driver.find_element(By.XPATH, "(//div[normalize-space()='Fill out all required fields.'])[1]")
+            assert requirele.__eq__(expected_warning_message)
+            print("Field need to be filled")
+        except:
+
+            print("All the fields has been filled")

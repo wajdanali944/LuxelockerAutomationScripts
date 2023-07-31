@@ -18,7 +18,8 @@ class CreateUnits:
     available_for_sale_checkbox_xpath = ".//*[@class='flex items-center justify-start ']/following::span"
     enter_lease_price_name = "leasePrice"
     enter_buy_price_name = "buyPrice"
-    active_xpath = "(//input[@type='checkbox'])[23]"
+    active_xpath = "/html/body/div[2]/div[3]/div/div[2]/form/div[1]/div[8]/div/div[2]/label/span[1]/input"
+    expected_warning_message = "(//div[normalize-space()='Fill out all required fields.'])[1]"
 
     def click_on_new_unit_button(self):
         self.driver.find_element(By.XPATH, self.create_units_button_xpath).click()
@@ -62,3 +63,6 @@ class CreateUnits:
 
     def click_on_active_checkbox(self):
         self.driver.find_element(By.XPATH, self.active_xpath).click()
+
+    def retrieve_warning_message(self):
+       return self.driver.find_element(By.XPATH, self.expected_warning_message).text
