@@ -64,3 +64,14 @@ class call(BaseClass):
         except:
 
             print("All the fields has been filled")
+
+    def recallable_disable_create_user_button(driver):
+        try:
+            ele_dis = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.XPATH,
+                                                                             "//*[@class='MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-root MuiLoadingButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium !px-5 !text-white text-sm !normal-case css-hzswti"))).is_enabled()
+        # ele_dis = self.driver.find_element(By.XPATH,
+        # "//*[@class='MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium Mui-disabled MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-1lrzbgp']").click()
+            ele_dis.click()
+        except:
+            print("Kindly add the data in the field")
+            pass
