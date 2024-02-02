@@ -12,7 +12,7 @@ class TestSearch:
     def test_search_for_a_valid_product(self):
         home_page = HomePage(self.driver)
         home_page.enter_email_address("admin@luxelocker.com")
-        home_page.enter_password("123456789aA!")
+        home_page.enter_password("123456789Ll!@")
         home_page.click_on_login_button()
         self.driver.implicitly_wait(10)
         self.driver.find_element(By.XPATH, "/html/body/div[1]/div/div[1]/ul/div[1]/div[1]/div/div[2]/span").click()
@@ -25,7 +25,7 @@ class TestSearch:
     def test_search_for_a_non_valid_product(self):
         home_page = HomePage(self.driver)
         home_page.enter_email_address("admin@luxelocker.com")
-        home_page.enter_password("123456789aA!")
+        home_page.enter_password("123456789Ll!@")
         home_page.click_on_login_button()
         self.driver.implicitly_wait(10)
         self.driver.find_element(By.XPATH, "/html/body/div[1]/div/div[1]/ul/div[1]/div[1]/div/div[2]/span").click()
@@ -39,7 +39,7 @@ class TestSearch:
     def test_search_without_entering_any_product(self):
         home_page = HomePage(self.driver)
         home_page.enter_email_address("admin@luxelocker.com")
-        home_page.enter_password("123456789aA!")
+        home_page.enter_password("123456789Ll!@")
         home_page.click_on_login_button()
         self.driver.implicitly_wait(10)
         self.driver.find_element(By.XPATH, "/html/body/div[1]/div/div[1]/ul/div[1]/div[1]/div/div[2]/span").click()

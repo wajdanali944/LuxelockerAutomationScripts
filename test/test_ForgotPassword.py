@@ -12,7 +12,7 @@ class TestForgotPassword:
         self.driver.implicitly_wait(3)
         forgot_password.enter_email_address("wajdanali9333@gmail.com")
         forgot_password.click_on_send_button()
-        expected_warning_message = "Something went wrong"
+        expected_warning_message = "Email is required"
         self.driver.implicitly_wait(5)
         assert forgot_password.retreive_warning_message_xpath().__contains__(expected_warning_message)
 

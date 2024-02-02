@@ -19,7 +19,7 @@ class TestCreateUser:
     def test_create_user_including_nothing(self):
         home_page = HomePage(self.driver)
         home_page.enter_email_address("admin@luxelocker.com")
-        home_page.enter_password("123456789aA!")
+        home_page.enter_password("123456789Ll!@")
         home_page.click_on_login_button()
         time.sleep(6)
         create_user = CreateUser(self.driver)
@@ -35,7 +35,7 @@ class TestCreateUser:
     def test_create_user_including_everything(self):
         home_page = HomePage(self.driver)
         home_page.enter_email_address("admin@luxelocker.com")
-        home_page.enter_password("123456789aA!")
+        home_page.enter_password("123456789Ll!@")
         home_page.click_on_login_button()
         time.sleep(8)
         create_user = CreateUser(self.driver)

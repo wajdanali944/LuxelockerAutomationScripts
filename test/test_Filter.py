@@ -13,7 +13,7 @@ class TestFilter:
     def test_filter_is_working_for_campus(self):
         home_page = HomePage(self.driver)
         home_page.enter_email_address("admin@luxelocker.com")
-        home_page.enter_password("123456789aA!")
+        home_page.enter_password("123456789Ll!@")
         home_page.click_on_login_button()
         self.driver.implicitly_wait(10)
         home_page.click_on_campus_link()

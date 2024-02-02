@@ -12,14 +12,14 @@ class call(BaseClass):
 
     def recallable_button(driver):
         try:
-            driver.find_element(By.XPATH,
-                                "//*[@class='MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-1kvk6gs']/parent::div").click
             driver.implicitly_wait(3)
-            driver.find_element(By.XPATH,
-                                "//*[@class='MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-1kvk6gs']").click()
-            print("Modal button clicked")  # clicking on continue button
+            driver.find_element(By.XPATH, "(//span[@type='button'])[2]").click()
+
+            # driver.find_element(By.XPATH,
+                                # "//*[@class='MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-root MuiLoadingButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium !px-8 !normal-case w-24 css-hzswti']").click()
+            print("Save button has been clicked")
         except TimeoutException:
-            print("Modal button was not found")
+            print("Save button was not found")
 
 
     def recallable_save_button(driver):

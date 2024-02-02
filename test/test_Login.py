@@ -1,6 +1,7 @@
 from datetime import datetime
 import pytest
 from selenium.webdriver.common.by import By
+import undetected_chromedriver as uc
 
 from pages.HomePage import HomePage
 from pages.LoginPage import LoginPage
@@ -11,14 +12,14 @@ class TestLogin:
     def test_login_with_valid_credentials(self):
         home_page = HomePage(self.driver)
         home_page.enter_email_address("admin@luxelocker.com")
-        home_page.enter_password("123456789aA!")
+        home_page.enter_password("123456789Ll!@")
         home_page.click_on_login_button()
 
 
     def test_login_with_invalid_email_and_valid_password(self):
         home_page = HomePage(self.driver)
         home_page.enter_email_address(self.generate_email_with_time_stamp())
-        home_page.enter_password("123456789aA!")
+        home_page.enter_password("123456789Ll!@")
         home_page.click_on_login_button()
         login_page = LoginPage(self.driver)
         expected_warning_message = "The email you entered did not match our records. Please double-check and try again."
@@ -29,7 +30,7 @@ class TestLogin:
     def test_login_with_valid_email_and_invalid_password(self):
         home_page = HomePage(self.driver)
         home_page.enter_email_address("admin@luxelocker.com")
-        home_page.enter_password("1234567899aA!")
+        home_page.enter_password("123456789Ll!")
         home_page.click_on_login_button()
         login_page = LoginPage(self.driver)
         expected_warning_message = "The password you entered did not match our records. Please double-check and try again."

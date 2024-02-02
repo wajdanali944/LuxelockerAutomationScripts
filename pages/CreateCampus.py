@@ -9,6 +9,7 @@ class CreateCampus:
     create_campus_button_xpath = "/html/body/div[1]/div/div[2]/div/div[1]/span/span[1]"
     enter_campus_street_field_name = "street"
     enter_campus_postal_code_field_name = "postalCode"
+    enter_campus_phone_number_field_name = "phone"
     enter_campus_number_of_units_field_name = "numOfUnits"
     enter_campus_longitude_field_name = "longitude"
     enter_campus_latitude_field_name = "latitude"
@@ -28,6 +29,12 @@ class CreateCampus:
         self.driver.find_element(By.NAME, self.enter_campus_postal_code_field_name).click()
         self.driver.find_element(By.NAME, self.enter_campus_postal_code_field_name).clear()
         self.driver.find_element(By.NAME, self.enter_campus_postal_code_field_name).send_keys(postal_code_text)
+
+    def enter_campus_phone(self,phone_number_text):
+        self.driver.find_element(By.NAME, self.enter_campus_phone_number_field_name).click()
+        self.driver.find_element(By.NAME, self.enter_campus_phone_number_field_name).clear()
+        self.driver.find_element(By.NAME, self.enter_campus_phone_number_field_name).send_keys(phone_number_text)
+
 
     def enter_campus_numberofunits(self,number_of_units_text):
         self.driver.find_element(By.NAME, self.enter_campus_number_of_units_field_name).click()

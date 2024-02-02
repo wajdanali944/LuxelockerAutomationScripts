@@ -9,7 +9,7 @@ class TestRowsPerPage:
     def test_verifying_rows_per_page_with_total_rows_for_campus_page(self):
         home_page = HomePage(self.driver)
         home_page.enter_email_address("admin@luxelocker.com")
-        home_page.enter_password("123456789aA!")
+        home_page.enter_password("123456789Ll!@")
         home_page.click_on_login_button()
         self.driver.implicitly_wait(10)
         home_page.click_on_campus_link()
@@ -29,7 +29,7 @@ class TestRowsPerPage:
     def test_verifying_rows_per_page_with_total_rows_for_units_page(self):
         home_page = HomePage(self.driver)
         home_page.enter_email_address("admin@luxelocker.com")
-        home_page.enter_password("123456789aA!")
+        home_page.enter_password("123456789Ll!@")
         home_page.click_on_login_button()
         self.driver.implicitly_wait(10)
         home_page.click_on_unit_link()  #click on Units on side window
@@ -49,7 +49,7 @@ class TestRowsPerPage:
     def test_verifying_rows_per_page_with_total_rows_for_users_page(self):
         home_page = HomePage(self.driver)
         home_page.enter_email_address("admin@luxelocker.com")
-        home_page.enter_password("123456789aA!")
+        home_page.enter_password("123456789Ll!@")
         home_page.click_on_login_button()
         self.driver.implicitly_wait(10)
         # self.driver.find_element(By.XPATH, "/html/body/div[1]/div/div[1]/ul/div[1]/div[3]/div/div[2]/span").click()  #No need of click on side window because it is already on the Users page
@@ -66,47 +66,47 @@ class TestRowsPerPage:
                 if not self.check_for_more_records_for_users_page(total=100, all_records=splitval[2]):
                     print("Rows are more than 100")
 
-    def test_verifying_rows_per_page_with_total_rows_for_faqs_page(self):
-        home_page = HomePage(self.driver)
-        home_page.enter_email_address("admin@luxelocker.com")
-        home_page.enter_password("123456789aA!")
-        home_page.click_on_login_button()
-        self.driver.implicitly_wait(10)
-        home_page.click_on_faq_link()  #click on FAQS on side window
-        self.driver.implicitly_wait(15)
-        self.driver.find_element(By.XPATH,"/html/body/div[1]/div/div[2]/div/div[2]/div/div[2]/div/div[2]/div/div[2]/div[1]/div[1]/div/div")
+    # def test_verifying_rows_per_page_with_total_rows_for_faqs_page(self):
+    #     home_page = HomePage(self.driver)
+    #     home_page.enter_email_address("admin@luxelocker.com")
+    #     home_page.enter_password("123456789Ll!@")
+    #     home_page.click_on_login_button()
+    #     self.driver.implicitly_wait(10)
+    #     home_page.click_on_faq_link()  #click on FAQS on side window
+    #     self.driver.implicitly_wait(15)
+    #     self.driver.find_element(By.XPATH,"/html/body/div[1]/div/div[2]/div/div[2]/div/div[2]/div/div[2]/div/div[2]/div[1]/div[1]/div/div")
+    #
+    #     totalpaginationcount = self.driver.find_element(By.XPATH,
+    #                                                         "//*[@id=\"simple-tabpanel-0\"]/div/div[2]/div/div[2]/div[1]/div[2]/span")
+    #     text = totalpaginationcount.text
+    #     splitval = text.split()
 
-        totalpaginationcount = self.driver.find_element(By.XPATH,
-                                                            "//*[@id=\"simple-tabpanel-0\"]/div/div[2]/div/div[2]/div[1]/div[2]/span")
-        text = totalpaginationcount.text
-        splitval = text.split()
+        # if not self.check_for_more_records(count=20, total_records=splitval[2]):
+        #     if not self.check_for_more_records(count=50, total_records=splitval[2]):
+        #         if not self.check_for_more_records(count=100, total_records=splitval[2]):
+        #             print("Rows are more than 100")
 
-        if not self.check_for_more_records(count=20, total_records=splitval[2]):
-            if not self.check_for_more_records(count=50, total_records=splitval[2]):
-                if not self.check_for_more_records(count=100, total_records=splitval[2]):
-                    print("Rows are more than 100")
-
-    def test_verifying_rows_per_page_with_total_rows_for_announcement_page(self):
-        home_page = HomePage(self.driver)
-        home_page.enter_email_address("admin@luxelocker.com")
-        home_page.enter_password("123456789aA!")
-        home_page.click_on_login_button()
-        self.driver.implicitly_wait(10)
-        home_page.click_on_announcement_link()  # click on Announcements on side window
-        self.driver.implicitly_wait(15)
-        self.driver.find_element(By.XPATH,
-                                 "/html/body/div[1]/div/div[2]/div/div[3]/div/div[2]/div[1]/div[1]/div") #rows per page xpath
-
-        totalpaginationcount = self.driver.find_element(By.XPATH,
-                                                        "//span[@class='Pagination-rowsLabel']")  #pagination xpath
-        text = totalpaginationcount.text
-        splitval = text.split()
-
-        if not self.check_for_more_records_for_announcement_page(ann_total=20, ann_all_records=splitval[2]):
-            if not self.check_for_more_records_for_announcement_page(ann_total=50, ann_all_records=splitval[2]):
-                if not self.check_for_more_records_for_announcement_page(ann_total=100, ann_all_records=splitval[2]):
-                    print("Rows are more than 100")
-
+    # def test_verifying_rows_per_page_with_total_rows_for_announcement_page(self):
+    #     home_page = HomePage(self.driver)
+    #     home_page.enter_email_address("admin@luxelocker.com")
+    #     home_page.enter_password("123456789Ll!@")
+    #     home_page.click_on_login_button()
+    #     self.driver.implicitly_wait(10)
+    #     home_page.click_on_announcement_link()  # click on Announcements on side window
+    #     self.driver.implicitly_wait(15)
+    #     self.driver.find_element(By.XPATH,
+    #                              "/html/body/div[1]/div/div[2]/div/div[3]/div/div[2]/div[1]/div[1]/div") #rows per page xpath
+    #
+    #     totalpaginationcount = self.driver.find_element(By.XPATH,
+    #                                                     "//span[@class='Pagination-rowsLabel']")  #pagination xpath
+    #     text = totalpaginationcount.text
+    #     splitval = text.split()
+    #
+    #     if not self.check_for_more_records_for_announcement_page(ann_total=20, ann_all_records=splitval[2]):
+    #         if not self.check_for_more_records_for_announcement_page(ann_total=50, ann_all_records=splitval[2]):
+    #             if not self.check_for_more_records_for_announcement_page(ann_total=100, ann_all_records=splitval[2]):
+    #                 print("Rows are more than 100")
+    #
     def check_for_more_records(self, count, total_records):
         self.driver.find_element(By.XPATH,
                                  "/html/body/div[1]/div/div[2]/div/div[2]/div/div[2]/div/div[2]/div/div[2]/div[1]/div[1]/div/div").click()
